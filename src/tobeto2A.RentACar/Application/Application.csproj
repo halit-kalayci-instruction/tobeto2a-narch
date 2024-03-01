@@ -25,4 +25,7 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\Brands\Commands\Update\" />
+  </ItemGroup>
 </Project>
