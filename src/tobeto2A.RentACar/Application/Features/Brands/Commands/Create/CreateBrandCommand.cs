@@ -1,8 +1,10 @@
-﻿using Application.Features.Brands.Rules;
+﻿using Application.Features.Brands.Constants;
+using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
 using MediatR;
+using NArchitecture.Core.Application.Pipelines.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +12,17 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Application.Features.Brands.Commands.Create;
-public class CreateBrandCommand : IRequest<CreatedBrandResponse>
+public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ISecuredRequest
 {
     public string Name { get; set; }
     public string Logo { get; set; }
 
+    // || 
+    public string[] Roles => new string[] { BrandsOperationClaims.Write, BrandsOperationClaims.Create };
+
+
+
+    // Brand.Update, Brand.Add, Brand.Delete, Brand.General
 
     // Inner class
     public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, CreatedBrandResponse>
