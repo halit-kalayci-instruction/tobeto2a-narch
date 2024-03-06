@@ -27,6 +27,7 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
 
         builder.HasQueryFilter(oc => !oc.DeletedDate.HasValue);
 
+
         builder.HasData(_seeds);
 
         builder.HasBaseType((string)null!);
