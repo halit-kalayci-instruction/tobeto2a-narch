@@ -1,10 +1,12 @@
 ﻿using Domain.Entities;
+using NArchitecture.Core.Application.Dtos;
 using NArchitecture.Core.Security.JWT;
 
 namespace Application.Services.AuthService;
 
 public interface IAuthService
 {
+    public Task<User> Register(UserForRegisterDto request);
     public Task<AccessToken> CreateAccessToken(User user);
     public Task<RefreshToken> CreateRefreshToken(User user, string ipAddress);
     public Task<RefreshToken?> GetRefreshTokenByToken(string refreshToken);

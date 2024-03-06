@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NArchitecture.Core.Security.Constants;
 using Application.Features.Models.Constants;
+using Application.Features.Customers.Constants;
+using Application.Features.CorporateCustomers.Constants;
+using Application.Features.IndividualCustomers.Constants;
 
 namespace Persistence.EntityConfigurations;
 
@@ -108,6 +111,48 @@ public class OperationClaimConfiguration : IEntityTypeConfiguration<OperationCla
                 new() { Id = ++lastId, Name = ModelsOperationClaims.Create },
                 new() { Id = ++lastId, Name = ModelsOperationClaims.Update },
                 new() { Id = ++lastId, Name = ModelsOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region Customers
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = CustomersOperationClaims.Admin },
+                new() { Id = ++lastId, Name = CustomersOperationClaims.Read },
+                new() { Id = ++lastId, Name = CustomersOperationClaims.Write },
+                new() { Id = ++lastId, Name = CustomersOperationClaims.Create },
+                new() { Id = ++lastId, Name = CustomersOperationClaims.Update },
+                new() { Id = ++lastId, Name = CustomersOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region CorporateCustomers
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = CorporateCustomersOperationClaims.Admin },
+                new() { Id = ++lastId, Name = CorporateCustomersOperationClaims.Read },
+                new() { Id = ++lastId, Name = CorporateCustomersOperationClaims.Write },
+                new() { Id = ++lastId, Name = CorporateCustomersOperationClaims.Create },
+                new() { Id = ++lastId, Name = CorporateCustomersOperationClaims.Update },
+                new() { Id = ++lastId, Name = CorporateCustomersOperationClaims.Delete },
+            ]
+        );
+        #endregion
+        
+        
+        #region IndividualCustomers
+        featureOperationClaims.AddRange(
+            [
+                new() { Id = ++lastId, Name = IndividualCustomersOperationClaims.Admin },
+                new() { Id = ++lastId, Name = IndividualCustomersOperationClaims.Read },
+                new() { Id = ++lastId, Name = IndividualCustomersOperationClaims.Write },
+                new() { Id = ++lastId, Name = IndividualCustomersOperationClaims.Create },
+                new() { Id = ++lastId, Name = IndividualCustomersOperationClaims.Update },
+                new() { Id = ++lastId, Name = IndividualCustomersOperationClaims.Delete },
             ]
         );
         #endregion

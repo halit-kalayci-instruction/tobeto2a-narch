@@ -10,13 +10,13 @@ namespace WebAPI.Controllers;
 [ApiController]
 public class BrandsController : BaseController
 {
-
     [HttpPost]
     public async Task<IActionResult> Add([FromBody]CreateBrandCommand command)
     {
         CreatedBrandResponse response = await Mediator.Send(command);
         return Created("", response);
     }
+    // MediatR -> .NET içerisinde Mediator pattern
 
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest)

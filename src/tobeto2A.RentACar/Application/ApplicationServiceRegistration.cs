@@ -22,6 +22,9 @@ using NArchitecture.Core.Mailing;
 using NArchitecture.Core.Mailing.MailKit;
 using NArchitecture.Core.Security.DependencyInjection;
 using Application.Services.Models;
+using Application.Services.Customers;
+using Application.Services.CorporateCustomers;
+using Application.Services.IndividualCustomers;
 
 namespace Application;
 
@@ -68,6 +71,9 @@ public static class ApplicationServiceRegistration
         services.AddSecurityServices<Guid, int>();
 
         services.AddScoped<IModelService, ModelManager>();
+        services.AddScoped<ICustomerService, CustomerManager>();
+        services.AddScoped<ICorporateCustomerService, CorporateCustomerManager>();
+        services.AddScoped<IIndividualCustomerService, IndividualCustomerManager>();
         return services;
     }
 
