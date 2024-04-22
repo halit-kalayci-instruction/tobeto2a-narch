@@ -1,28 +1,31 @@
-﻿using Application.Features.Auth.Rules;
+﻿using Application.Features.Auth.Dtos;
+using Application.Features.Auth.Rules;
 using Application.Services.AuthService;
 using Application.Services.Repositories;
 using Domain.Entities;
 using MediatR;
 using NArchitecture.Core.Application.Dtos;
+using NArchitecture.Core.Application.Pipelines.Transaction;
+using NArchitecture.Core.CrossCuttingConcerns.Exception.Types;
 using NArchitecture.Core.Security.Hashing;
 using NArchitecture.Core.Security.JWT;
 
 namespace Application.Features.Auth.Commands.Register;
 
-public class RegisterCommand : IRequest<RegisteredResponse>
+public class RegisterCommand : IRequest<RegisteredResponse>, ITransactionalRequest
 {
-    public UserForRegisterDto UserForRegisterDto { get; set; }
+    public RegisterDto RegisterDto { get; set; }
     public string IpAddress { get; set; }
 
     public RegisterCommand()
     {
-        UserForRegisterDto = null!;
+        RegisterDto = null!;
         IpAddress = string.Empty;
     }
 
-    public RegisterCommand(UserForRegisterDto userForRegisterDto, string ipAddress)
+    public RegisterCommand(RegisterDto userForRegisterDto, string ipAddress)
     {
-        UserForRegisterDto = userForRegisterDto;
+        RegisterDto = userForRegisterDto;
         IpAddress = ipAddress;
     }
 
@@ -42,20 +45,22 @@ public class RegisterCommand : IRequest<RegisteredResponse>
             _authService = authService;
             _authBusinessRules = authBusinessRules;
         }
-
+        // Caching
+        // Dynamic Query
+        // Role Guard
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
-            await _authBusinessRules.UserEmailShouldBeNotExists(request.UserForRegisterDto.Email);
+            await _authBusinessRules.UserEmailShouldBeNotExists(request.RegisterDto.User.Email);
 
             HashingHelper.CreatePasswordHash(
-                request.UserForRegisterDto.Password,
+                request.RegisterDto.User.Password,
                 passwordHash: out byte[] passwordHash,
                 passwordSalt: out byte[] passwordSalt
             );
             User newUser =
                 new()
                 {
-                    Email = request.UserForRegisterDto.Email,
+                    Email = request.RegisterDto.User.Email,
                     PasswordHash = passwordHash,
                     PasswordSalt = passwordSalt,
                 };
@@ -68,6 +73,11 @@ public class RegisterCommand : IRequest<RegisteredResponse>
                 request.IpAddress
             );
             Domain.Entities.RefreshToken addedRefreshToken = await _authService.AddRefreshToken(createdRefreshToken);
+
+
+            Customer customer = new Customer();
+            customer.UserId = createdUser.Id;
+
 
             RegisteredResponse registeredResponse = new() { AccessToken = createdAccessToken, RefreshToken = addedRefreshToken };
             return registeredResponse;
