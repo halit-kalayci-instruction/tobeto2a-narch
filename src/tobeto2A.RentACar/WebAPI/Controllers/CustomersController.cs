@@ -6,6 +6,7 @@ using Application.Features.Customers.Queries.GetList;
 using NArchitecture.Core.Application.Requests;
 using NArchitecture.Core.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using Application.Features.Customers.Commands.AddPicture;
 
 namespace WebAPI.Controllers;
 
@@ -19,6 +20,14 @@ public class CustomersController : BaseController
         CreatedCustomerResponse response = await Mediator.Send(createCustomerCommand);
 
         return Created(uri: "", response);
+    }
+
+    [HttpPost("Image")]
+    public async Task<IActionResult> AddImage([FromForm] IFormFile formFile)
+    {
+        AddPictureCommand command = new AddPictureCommand() { File = formFile };
+        var response = await Mediator.Send(command);
+        return Ok(response);
     }
 
     [HttpPut]
