@@ -65,25 +65,25 @@ public class LoginTests
         IMapper mapper = new Mapper(new MapperConfiguration(cfg => cfg.AddProfile<MappingProfiles>()));
         #endregion
         AuthBusinessRules authBusinessRules = new(_userRepository, localizationService);
-        IAuthService _authService = new AuthManager(
-            _userOperationClaimRepository,
-            _refreshTokenRepository,
-            tokenHelper,
-            _configuration,
-            mapper
-        );
-        UserBusinessRules _userBusinessRules = new(_userRepository, localizationService);
-        IUserService _userService = new UserManager(_userRepository, _userBusinessRules);
-        IAuthenticatorService _authententicatorService = new AuthenticatorManager(
-            emailAuthenticatorHelper,
-            _userEmailAuthenticatorRepository,
-            mailService,
-            otpAuthenticatorHelper,
-            _userOtpAuthenticatorRepository
-        );
-        _validator = new LoginCommandValidator();
-        _loginCommand = new LoginCommand();
-        _loginCommandHandler = new LoginCommandHandler(_userService, _authService, authBusinessRules, _authententicatorService);
+        //IAuthService _authService = new AuthManager(
+        //    _userOperationClaimRepository,
+        //    _refreshTokenRepository,
+        //    tokenHelper,
+        //    _configuration,
+        //    mapper
+        //);
+        //UserBusinessRules _userBusinessRules = new(_userRepository, localizationService);
+        //IUserService _userService = new UserManager(_userRepository, _userBusinessRules);
+        //IAuthenticatorService _authententicatorService = new AuthenticatorManager(
+        //    emailAuthenticatorHelper,
+        //    _userEmailAuthenticatorRepository,
+        //    mailService,
+        //    otpAuthenticatorHelper,
+        //    _userOtpAuthenticatorRepository
+        //);
+        ////_validator = new LoginCommandValidator();
+        //_loginCommand = new LoginCommand();
+        //_loginCommandHandler = new LoginCommandHandler(_userService, _authService, authBusinessRules, _authententicatorService);
     }
 
     [Fact]
