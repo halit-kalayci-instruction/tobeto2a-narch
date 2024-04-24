@@ -9,7 +9,7 @@ using static Application.Features.Users.Constants.UsersOperationClaims;
 
 namespace Application.Features.Users.Commands.Delete;
 
-public class DeleteUserCommand : IRequest<DeletedUserResponse>, ISecuredRequest
+public class DeleteUserCommand : IRequest<DeletedUserResponse>
 {
     public Guid Id { get; set; }
 

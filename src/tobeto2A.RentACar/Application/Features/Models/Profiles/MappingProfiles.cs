@@ -7,6 +7,7 @@ using AutoMapper;
 using NArchitecture.Core.Application.Responses;
 using Domain.Entities;
 using NArchitecture.Core.Persistence.Paging;
+using Application.Features.Models.Queries.GetDynamic;
 
 namespace Application.Features.Models.Profiles;
 
@@ -23,5 +24,7 @@ public class MappingProfiles : Profile
         CreateMap<Model, GetByIdModelResponse>().ReverseMap();
         CreateMap<Model, GetListModelListItemDto>().ReverseMap();
         CreateMap<IPaginate<Model>, GetListResponse<GetListModelListItemDto>>().ReverseMap();
+        CreateMap<GetDynamicModelItemDto, Model>().ReverseMap().ForMember(i=>i.BrandName, opt => opt.MapFrom(j=>j.Brand.Name));
+        CreateMap<IPaginate<Model>, GetListResponse<GetDynamicModelItemDto>>().ReverseMap();
     }
 }

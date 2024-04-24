@@ -54,6 +54,7 @@ builder
     });
 
 builder.Services.AddDistributedMemoryCache();
+// Redis
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddCors(opt =>

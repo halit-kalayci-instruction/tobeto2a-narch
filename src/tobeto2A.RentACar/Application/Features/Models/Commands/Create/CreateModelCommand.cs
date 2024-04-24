@@ -11,7 +11,7 @@ using static Application.Features.Models.Constants.ModelsOperationClaims;
 
 namespace Application.Features.Models.Commands.Create;
 
-public class CreateModelCommand : IRequest<CreatedModelResponse>, ISecuredRequest, ICacheRemoverRequest, ILoggableRequest
+public class CreateModelCommand : IRequest<CreatedModelResponse>,  ICacheRemoverRequest, ILoggableRequest
 {
     public string Name { get; set; }
     public Guid BrandId { get; set; }

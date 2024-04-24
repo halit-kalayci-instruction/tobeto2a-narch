@@ -48,6 +48,7 @@ public class RegisterCommand : IRequest<RegisteredResponse>, ITransactionalReque
         // Caching
         // Dynamic Query
         // Role Guard
+        // 5:05
         public async Task<RegisteredResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
         {
             await _authBusinessRules.UserEmailShouldBeNotExists(request.RegisterDto.User.Email);

@@ -12,13 +12,16 @@ using static Application.Features.Models.Constants.ModelsOperationClaims;
 
 namespace Application.Features.Models.Queries.GetList;
 
-public class GetListModelQuery : IRequest<GetListResponse<GetListModelListItemDto>>, ISecuredRequest, ICachableRequest
+public class GetListModelQuery : IRequest<GetListResponse<GetListModelListItemDto>>, ICachableRequest
 {
     public PageRequest PageRequest { get; set; }
 
     public string[] Roles => [Admin, Read];
 
     public bool BypassCache { get; }
+    // GetListModels(0.20
+    // GetListModels(0.30)
+    // GetModels
     public string? CacheKey => $"GetListModels({PageRequest.PageIndex},{PageRequest.PageSize})";
     public string? CacheGroupKey => "GetModels";
     public TimeSpan? SlidingExpiration { get; }

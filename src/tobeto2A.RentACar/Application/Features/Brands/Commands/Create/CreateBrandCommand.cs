@@ -9,6 +9,7 @@ using NArchitecture.Core.Application.Pipelines.Logging;
 using NArchitecture.Core.Application.Pipelines.Performance;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -44,6 +45,7 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ISecuredReques
 
         public async Task<CreatedBrandResponse> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
         {
+           
             await Task.Delay(5000);
             // Thread.Sleep(5000) => Sync
             await _brandBusinessRules.CarShouldNotExistsWithSameName(request.Name);
@@ -52,7 +54,6 @@ public class CreateBrandCommand : IRequest<CreatedBrandResponse>, ISecuredReques
             Brand addedBrand = await _brandRepository.AddAsync(brand);
 
             CreatedBrandResponse createdBrandResponse = _mapper.Map<CreatedBrandResponse>(addedBrand);
-
             return createdBrandResponse;
         }
     }
