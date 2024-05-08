@@ -604,9 +604,9 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("DeletedDate");
 
-                    b.Property<DateTime>("ExpiresDate")
+                    b.Property<DateTime>("ExpirationDate")
                         .HasColumnType("datetime2")
-                        .HasColumnName("ExpiresDate");
+                        .HasColumnName("ExpirationDate");
 
                     b.Property<string>("ReasonRevoked")
                         .HasColumnType("nvarchar(max)")

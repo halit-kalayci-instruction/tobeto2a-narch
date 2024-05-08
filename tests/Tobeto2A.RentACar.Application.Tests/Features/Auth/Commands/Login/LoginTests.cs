@@ -52,7 +52,7 @@ public class LoginTests
         IUserRepository _userRepository = new MockUserRepository(userFakeData).GetUserMockRepository();
         #endregion
         #region Mock Helpers
-        ITokenHelper<Guid, int> tokenHelper = new JwtHelper<Guid, int>(_configuration);
+        ITokenHelper<Guid, int, Guid> tokenHelper = new JwtHelper<Guid, int, Guid>(_configuration.GetSection("TokenOptions").Get<TokenOptions>());
         IEmailAuthenticatorHelper emailAuthenticatorHelper = new EmailAuthenticatorHelper();
         MailSettings mailSettings =
             _configuration.GetSection("MailSettings").Get<MailSettings>() ?? throw new Exception("Mail settings not found.");

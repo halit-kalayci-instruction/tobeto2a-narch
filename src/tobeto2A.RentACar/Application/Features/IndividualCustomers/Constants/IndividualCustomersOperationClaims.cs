@@ -1,8 +1,8 @@
-using NArchitecture.Core.Security.Attributes;
+
 
 namespace Application.Features.IndividualCustomers.Constants;
 
-[OperationClaimConstants]
+
 public static class IndividualCustomersOperationClaims
 {
     private const string _section = "IndividualCustomers";

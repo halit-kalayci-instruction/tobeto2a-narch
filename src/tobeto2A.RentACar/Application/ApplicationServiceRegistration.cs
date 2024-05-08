@@ -25,6 +25,7 @@ using Application.Services.Models;
 using Application.Services.Customers;
 using Application.Services.CorporateCustomers;
 using Application.Services.IndividualCustomers;
+using NArchitecture.Core.Security.JWT;
 
 namespace Application;
 
@@ -34,7 +35,8 @@ public static class ApplicationServiceRegistration
         this IServiceCollection services,
         MailSettings mailSettings,
         FileLogConfiguration fileLogConfiguration,
-        ElasticSearchConfig elasticSearchConfig
+        ElasticSearchConfig elasticSearchConfig,
+        TokenOptions tokenOptions
     )
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
@@ -68,7 +70,7 @@ public static class ApplicationServiceRegistration
 
         services.AddYamlResourceLocalization();
 
-        services.AddSecurityServices<Guid, int>();
+        services.AddSecurityServices<Guid, int, Guid>(tokenOptions);
 
         services.AddScoped<IModelService, ModelManager>();
         services.AddScoped<ICustomerService, CustomerManager>();
